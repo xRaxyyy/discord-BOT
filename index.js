@@ -2,6 +2,7 @@ require('dotenv').config();
 const { Client, GatewayIntentBits, Collection } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
+const express = require('express'); // Import express
 
 const client = new Client({
   intents: [
@@ -51,6 +52,20 @@ client.on('interactionCreate', async interaction => {
       ephemeral: true 
     });
   }
+});
+
+// Set up Express server
+const app = express();
+const port = process.env.PORT || 3000; // Use process.env.PORT or default to 3000
+
+// Example route
+app.get('/', (req, res) => {
+  res.send('Express server is running!');
+});
+
+// Start the Express server
+app.listen(port, () => {
+  console.log(`🚀 Express server running on port ${port}`);
 });
 
 client.login(process.env.DISCORD_TOKEN);
